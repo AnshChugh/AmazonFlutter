@@ -10,8 +10,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Initial Page'),
-    );
+    return const MaterialApp(
+        home:  Center(
+      child:  Text('Hello World'),
+      ),
+      debugShowCheckedModeBanner: false,
+  );
   }
 }
