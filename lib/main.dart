@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context,AuthScreen.routeName );
                     },
-                    child: Text('click'));
+                    child: const Text('click'));
                     
               }
             ),

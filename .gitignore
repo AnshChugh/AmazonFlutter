@@ -46,4 +46,9 @@ app.*.map.json
 #nodejs ignore
 /server/node_modules
 
+#mongodb password file
+/server/dbCredentials.js
 
+
+#ignore esling
+.eslintrc.json
