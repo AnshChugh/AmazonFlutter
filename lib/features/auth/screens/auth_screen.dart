@@ -1,6 +1,7 @@
 import 'package:amazon_flutter/common/widgets/custom_button.dart';
 import 'package:amazon_flutter/common/widgets/custom_text_field.dart';
 import 'package:amazon_flutter/constants/global_variables.dart';
+import 'package:amazon_flutter/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth { signup, signin }
@@ -14,6 +15,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  bool _isLoading = false;
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
@@ -94,7 +96,12 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         CustomButton(
                           text: 'submit',
-                          onTap: () {},
+                          onTap: () async {
+                            AuthService().signUpUser(
+                                email: _emailController.text,
+                                password: _passController.text,
+                                name: _nameController.text);
+                          },
                         ),
                       ],
                     ),
