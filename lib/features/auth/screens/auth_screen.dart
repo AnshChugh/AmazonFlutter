@@ -15,10 +15,10 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  bool _isLoading = false;
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
@@ -29,6 +29,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _passController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+        email: _emailController.text,
+        password: _passController.text,
+        name: _nameController.text,
+        context: context);
   }
 
   @override
@@ -70,40 +78,41 @@ class _AuthScreenState extends State<AuthScreen> {
                     decoration: const BoxDecoration(
                         color: GlobalVariables.backgroundColor),
                     padding: const EdgeInsets.all(8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomTextField(
-                          hintText: 'Name',
-                          controller: _nameController,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                          hintText: 'Email',
-                          controller: _emailController,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                            hintText: 'Password',
-                            controller: _passController,
-                            isPass: true),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomButton(
-                          text: 'submit',
-                          onTap: () async {
-                            AuthService().signUpUser(
-                                email: _emailController.text,
-                                password: _passController.text,
-                                name: _nameController.text);
-                          },
-                        ),
-                      ],
+                    child: Form(
+                      key: _signUpFormKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomTextField(
+                            hintText: 'Name',
+                            controller: _nameController,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                            hintText: 'Email',
+                            controller: _emailController,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                              hintText: 'Password',
+                              controller: _passController,
+                              isPass: true),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomButton(
+                              text: 'submit',
+                              onTap: () async {
+                                if (_signUpFormKey.currentState!.validate()) {
+                                  signUpUser();
+                                }
+                              }),
+                        ],
+                      ),
                     ),
                   ),
                 ListTile(
@@ -130,31 +139,34 @@ class _AuthScreenState extends State<AuthScreen> {
                     decoration: const BoxDecoration(
                         color: GlobalVariables.backgroundColor),
                     padding: const EdgeInsets.all(8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                          hintText: 'Email',
-                          controller: _emailController,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                            hintText: 'Password',
-                            controller: _passController,
-                            isPass: true),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomButton(
-                          text: 'Sign In',
-                          onTap: () {},
-                        ),
-                      ],
+                    child: Form(
+                      key: _signInFormKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                            hintText: 'Email',
+                            controller: _emailController,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                              hintText: 'Password',
+                              controller: _passController,
+                              isPass: true),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomButton(
+                            text: 'Sign In',
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
                     ),
                   ),
               ],
