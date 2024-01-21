@@ -5,21 +5,30 @@ class CustomTextField extends StatelessWidget {
   final bool isPass;
   final TextEditingController controller;
   const CustomTextField(
-      {super.key, required this.hintText, required this.controller,this.isPass = false});
+      {super.key,
+      required this.hintText,
+      required this.controller,
+      this.isPass = false});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
       controller: controller,
       decoration: InputDecoration(
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black38),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black38),
-          ),
-          hintText: hintText),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black38),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black38),
+        ),
+        hintText: hintText,
+      ),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return 'Enter your $hintText';
+        }
+        return null;
+      },
       obscureText: isPass,
     );
   }
