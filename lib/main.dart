@@ -1,16 +1,36 @@
 import 'package:amazon_flutter/constants/global_variables.dart';
 import 'package:amazon_flutter/features/auth/screens/auth_screen.dart';
+import 'package:amazon_flutter/features/auth/services/auth_service.dart';
+import 'package:amazon_flutter/home/screens/home_screen.dart';
+import 'package:amazon_flutter/providers/user_provider.dart';
 import 'package:amazon_flutter/router.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    )
+  ], child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AuthService authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    authService.getUserData(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,27 +43,9 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme.light(
             primary: GlobalVariables.secondaryColor,
           )),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Hello title'),
-        ),
-        body: Column(
-          children: [
-            const Center(child: Text('Hello')),
-            Builder(
-              builder: (context) {
-                return ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context,AuthScreen.routeName );
-                    },
-                    child: const Text('click'));
-                    
-              }
-            ),
-          ],
-        ),
-      ),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? const HomeScreen()
+          : const AuthScreen(),
       onGenerateRoute: (settings) => generateRouter(settings),
       debugShowCheckedModeBanner: false,
     );

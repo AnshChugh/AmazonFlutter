@@ -39,6 +39,13 @@ class _AuthScreenState extends State<AuthScreen> {
         context: context);
   }
 
+  void signInUser() {
+    authService.signInUser(
+        context: context,
+        email: _emailController.text,
+        password: _passController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -163,7 +170,11 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           CustomButton(
                             text: 'Sign In',
-                            onTap: () {},
+                            onTap: () async {
+                              if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            },
                           ),
                         ],
                       ),
