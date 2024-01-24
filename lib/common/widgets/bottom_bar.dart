@@ -1,5 +1,8 @@
 import 'package:amazon_flutter/constants/global_variables.dart';
+import 'package:amazon_flutter/features/account/screens/account_screen.dart';
+import 'package:amazon_flutter/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -13,10 +16,27 @@ class _BottomBarState extends State<BottomBar> {
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
+
+  List<Widget> pages = [
+    const HomeScreen(),
+    const AccountScreen(),
+    const Center(
+      child: Text('Cart Page'),
+    )
+  ];
+
+  void updatePage(int page) {
+    setState(() {
+      _page = page;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
+          onTap: updatePage,
           currentIndex: _page,
           selectedItemColor: GlobalVariables.selectedNavBarColor,
           unselectedItemColor: GlobalVariables.unselectedNavBarColor,
@@ -62,7 +82,14 @@ class _BottomBarState extends State<BottomBar> {
                             : GlobalVariables.backgroundColor,
                         width: bottomBarBorderWidth),
                   )),
-                  child: const Icon(Icons.home_outlined),
+                  child: const badges.Badge(
+                    badgeContent: const Text('2'),
+                    badgeStyle: badges.BadgeStyle(
+                      elevation: 0,
+                      badgeColor: Colors.white,
+                    ),
+                    child: const Icon(Icons.shopping_cart_outlined),
+                  ),
                 ),
                 label: ''),
           ]),
