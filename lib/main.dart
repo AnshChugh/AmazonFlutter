@@ -1,5 +1,6 @@
 import 'package:amazon_flutter/common/widgets/bottom_bar.dart';
 import 'package:amazon_flutter/constants/global_variables.dart';
+import 'package:amazon_flutter/features/admin/screens/admin_screen.dart';
 import 'package:amazon_flutter/features/auth/screens/auth_screen.dart';
 import 'package:amazon_flutter/features/auth/services/auth_service.dart';
 import 'package:amazon_flutter/providers/user_provider.dart';
@@ -44,7 +45,8 @@ class _MyAppState extends State<MyApp> {
             primary: GlobalVariables.secondaryColor,
           )),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const BottomBar()
+          ? Provider.of<UserProvider>(context).user.type == 'user'? const BottomBar()
+          : const AdminScreen()
           : const AuthScreen(),
       onGenerateRoute: (settings) => generateRouter(settings),
       debugShowCheckedModeBanner: false,
