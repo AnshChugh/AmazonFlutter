@@ -1,5 +1,7 @@
 import 'package:amazon_flutter/constants/global_variables.dart';
+import 'package:amazon_flutter/features/account/widgets/top_buttons.dart';
 import 'package:amazon_flutter/home/widgets/address_box.dart';
+import 'package:amazon_flutter/home/widgets/top_categories.dart';
 import 'package:amazon_flutter/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
@@ -80,11 +81,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       )),
                 ],
               ))),
-      body: Column(
+      body: const Column(
         children: [
-          const AddressBox(),
-          const SizedBox(height: 10,),
-          
+          AddressBox(),
+          SizedBox(
+            height: 10,
+          ),
+          TopCategories()
         ],
       ),
     );
