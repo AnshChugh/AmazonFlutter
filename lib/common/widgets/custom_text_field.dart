@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      maxLines: maxLines,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black38),
