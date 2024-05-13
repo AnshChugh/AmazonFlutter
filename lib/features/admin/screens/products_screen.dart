@@ -1,5 +1,4 @@
 import 'package:amazon_flutter/features/admin/screens/add_product_screen.dart';
-import 'package:amazon_flutter/router.dart';
 import 'package:flutter/material.dart';
 
 class ProductsScreen extends StatefulWidget {

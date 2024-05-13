@@ -4,11 +4,13 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool isPass;
   final TextEditingController controller;
+  final int maxLines;
   const CustomTextField(
       {super.key,
       required this.hintText,
       required this.controller,
-      this.isPass = false});
+      this.isPass = false,
+      this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
