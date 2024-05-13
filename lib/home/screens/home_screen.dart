@@ -2,6 +2,7 @@ import 'package:amazon_flutter/constants/global_variables.dart';
 import 'package:amazon_flutter/features/account/widgets/top_buttons.dart';
 import 'package:amazon_flutter/home/widgets/address_box.dart';
 import 'package:amazon_flutter/home/widgets/carousel_image.dart';
+import 'package:amazon_flutter/home/widgets/deal_of_the_day.dart';
 import 'package:amazon_flutter/home/widgets/top_categories.dart';
 import 'package:amazon_flutter/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
-            
+            DealOfTheDay()
           ],
         ),
       ),
