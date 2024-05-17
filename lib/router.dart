@@ -1,6 +1,7 @@
 import 'package:amazon_flutter/common/widgets/bottom_bar.dart';
 import 'package:amazon_flutter/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_flutter/features/auth/screens/auth_screen.dart';
+import 'package:amazon_flutter/home/screens/category_deals_screen.dart';
 import 'package:amazon_flutter/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,10 @@ Route<dynamic> generateRouter(RouteSettings routeSettings) {
       );
     case AddProductScreen.routeName:
       return MaterialPageRoute(builder: (_) => AddProductScreen());
+    case CategoryDealsScreen.routeName:
+      var category = routeSettings.arguments as String;
+      return MaterialPageRoute(
+          builder: (cat) => CategoryDealsScreen(category: category));
     default:
       return MaterialPageRoute(
           builder: (context) => const Scaffold(
