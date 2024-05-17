@@ -28,5 +28,19 @@ adminRouter.get('/admin/get-products',admin, async (req,res) => {
     }
 });
 
+adminRouter.post('/admin/delete-product', admin, async (req,res) => {
+    try{
+        const {id} = req.body;
+
+        // TODO: delete the images from server before removing product from database
+        // remove the product
+        await  Product.findByIdAndDelete(id);
+        res.status(200);
+        
+    }catch(e){
+        res.status(500).json({error:e.message});
+    }
+});
+
 
 module.exports = {adminRouter:adminRouter};
