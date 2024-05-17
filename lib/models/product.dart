@@ -44,4 +44,7 @@ class Product {
   }
 
   String toJson() => jsonEncode(toMap());
+
+  factory Product.fromjson(String source) =>
+      Product.fromMap(jsonDecode(source));
 }

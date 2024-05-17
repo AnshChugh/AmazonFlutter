@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:amazon_flutter/constants/error_handling.dart';
@@ -63,6 +64,29 @@ class AdminServices {
   }
 
   //get all the products
-
-  
+  Future<List<Product>> fetchProducts({required BuildContext context}) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Product> productList = [];
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/admin/get-products'),
+        headers: <String, String>{
+          'Content-type': 'Application/json; charset=UTF-8',
+          '-x-auth-token': userProvider.user.token
+        },
+      );
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            var products = jsonDecode(res.body);
+            for (int i = 0; i < products.length; i++) {
+              productList.add(Product.fromjson(jsonEncode(products[i])));
+            }
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return productList;
+  }
 }

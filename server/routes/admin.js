@@ -18,6 +18,15 @@ adminRouter.post('/admin/add-product',admin,async(req,res)=>{
 
 // get all products
 
+adminRouter.get('/admin/get-products',admin, async (req,res) => {
+    try{
+        const products = await Product.find({})
+        res.json(products);
+        
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
+});
 
 
 module.exports = {adminRouter:adminRouter};
