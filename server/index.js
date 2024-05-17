@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 // import other files
 const db = require('./dbCredentials')
 const authRouter = require('./routes/auth');
+const adminRouter = require('./routes/admin');
 
 
 
@@ -16,6 +17,7 @@ const port = 3000
 // client -> middleware ->  server -> client
 app.use(express.json());
 app.use(authRouter.authRouter); 
+app.use(adminRouter.adminRouter);
 
 //connections
 mongoose.connect(db).then(()=>{
