@@ -1,4 +1,5 @@
 const mongoos = require('mongoose');
+const ratingSchema = require('./rating');
 
 const productScema = new mongoos.Schema({
     name: {
@@ -29,6 +30,7 @@ const productScema = new mongoos.Schema({
         type: String,
         required: true
     },
+    ratings: [ratingSchema],    
 
 });
 
