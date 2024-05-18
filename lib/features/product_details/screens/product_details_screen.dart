@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:amazon_flutter/common/widgets/custom_button.dart';
 import 'package:amazon_flutter/common/widgets/stars.dart';
