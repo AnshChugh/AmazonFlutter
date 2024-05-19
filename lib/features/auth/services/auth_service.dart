@@ -21,14 +21,14 @@ class AuthService {
       required BuildContext context}) async {
     try {
       User user = User(
-        id: '',
-        name: name,
-        address: '',
-        password: password,
-        email: email,
-        token: '',
-        type: '',
-      );
+          id: '',
+          name: name,
+          address: '',
+          password: password,
+          email: email,
+          token: '',
+          type: '',
+          cart: []);
       http.Response res = await http.post(Uri.parse('$uri/api/signup'),
           body: user.toJson(),
           headers: <String, String>{
@@ -95,7 +95,7 @@ class AuthService {
           'Content-type': 'Application/json; charset=UTF-8',
           '-x-auth-token': token
         });
-        
+
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userRes.body);
       }

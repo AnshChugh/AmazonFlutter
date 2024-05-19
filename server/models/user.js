@@ -1,4 +1,5 @@
 const mongoos = require('mongoose');
+const { productSchema} = require('./product');
 
 const userScema = new mongoos.Schema({
     name: {
@@ -34,7 +35,17 @@ const userScema = new mongoos.Schema({
     type: {
         type: String,
         default: "user"
-    }
+    },
+    cart:
+    [   {
+        product: productSchema,
+        quantity: {
+            type: Number,
+            required: true
+        }
+        }
+    ]
+
 
 });
 

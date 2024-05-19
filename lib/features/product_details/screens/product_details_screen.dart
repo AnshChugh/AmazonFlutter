@@ -1,4 +1,3 @@
-
 import 'package:amazon_flutter/common/widgets/custom_button.dart';
 import 'package:amazon_flutter/common/widgets/stars.dart';
 import 'package:amazon_flutter/constants/global_variables.dart';
@@ -43,6 +42,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  void addToCart() async {
+    productDetailServices.addToCart(context: context, product: widget.product);
   }
 
   @override
@@ -184,7 +187,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: CustomButton(
                 text: 'Add to Cart',
-                onTap: () {},
+                onTap: addToCart,
                 color: const Color.fromRGBO(254, 216, 19, 1),
               ),
             ),

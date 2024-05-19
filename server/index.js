@@ -7,6 +7,7 @@ const db = require('./dbCredentials')
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
 const productRouter = require('./routes/product');
+const userRouter = require('./routes/user');
 
 
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(authRouter.authRouter); 
 app.use(adminRouter.adminRouter);
 app.use(productRouter.productRouter);
+app.use(userRouter.userRouter)
 
 //connections
 mongoose.connect(db).then(()=>{
