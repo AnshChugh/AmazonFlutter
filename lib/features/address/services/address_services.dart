@@ -62,6 +62,7 @@ class AdressServices {
           onSuccess: () {
             User user = userProvider.user.copyWith(cart: List.empty());
             userProvider.setUserFromModel(user);
+            Navigator.pop(context);
             showSnackBar(context, 'Your Order has been placed ');
           });
     } catch (e) {

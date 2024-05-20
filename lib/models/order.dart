@@ -11,15 +11,16 @@ class Order {
   final String userId;
   final int orderedAt;
   final int status;
-  Order({
-    required this.id,
-    required this.products,
-    required this.quantity,
-    required this.address,
-    required this.userId,
-    required this.orderedAt,
-    required this.status,
-  });
+  final int totalPrice;
+  Order(
+      {required this.id,
+      required this.products,
+      required this.quantity,
+      required this.address,
+      required this.userId,
+      required this.orderedAt,
+      required this.status,
+      required this.totalPrice});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -30,20 +31,21 @@ class Order {
       'userId': userId,
       'orderedAt': orderedAt,
       'status': status,
+      'totalPrice': totalPrice
     };
   }
 
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
-      id: map['_id'] as String,
-      products: List<Product>.from(
-          map['products']?.map((x) => Product.fromMap(x['product']))),
-      quantity: List<int>.from(map['products']?.map((x) => x['quantity'])),
-      address: map['address'] as String,
-      userId: map['userId'] as String,
-      orderedAt: map['orderedAt'] as int,
-      status: map['status'] as int,
-    );
+        id: map['_id'] as String,
+        products: List<Product>.from(
+            map['products']?.map((x) => Product.fromMap(x['product']))),
+        quantity: List<int>.from(map['products']?.map((x) => x['quantity'])),
+        address: map['address'] as String,
+        userId: map['userId'] as String,
+        orderedAt: map['orderedAt'] as int,
+        status: map['status'] as int,
+        totalPrice: map['totalPrice'] as int);
   }
 
   String toJson() => json.encode(toMap());

@@ -1,4 +1,5 @@
 import 'package:amazon_flutter/constants/global_variables.dart';
+import 'package:amazon_flutter/features/account/screens/order_details_screen.dart';
 import 'package:amazon_flutter/features/account/services/account_services.dart';
 import 'package:amazon_flutter/features/account/widgets/single_product.dart';
 import 'package:amazon_flutter/features/auth/widgets/loader.dart';
@@ -19,6 +20,7 @@ class _OrdersState extends State<Orders> {
 
   void fetchOrders() async {
     orders = await accountServices.fetchMyOrders(context: context);
+    setState(() {});
   }
 
   @override
@@ -64,8 +66,15 @@ class _OrdersState extends State<Orders> {
                     itemCount: orders!.length,
                     itemBuilder: (context, index) {
                       // temporary list
-                      return SingleProduct(
-                          img: orders![index].products[0].images[0]);
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, OrderDetailsScreen.routeName,
+                              arguments: orders![index]);
+                        },
+                        child: SingleProduct(
+                            img: orders![index].products[0].images[0]),
+                      );
                     },
                   )),
             ],
