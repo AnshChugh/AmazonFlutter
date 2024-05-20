@@ -1,12 +1,15 @@
+import 'package:amazon_flutter/common/widgets/custom_button.dart';
 import 'package:amazon_flutter/common/widgets/custom_text_field.dart';
 import 'package:amazon_flutter/constants/global_variables.dart';
+import 'package:amazon_flutter/features/address/services/address_services.dart';
 import 'package:amazon_flutter/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddressScreen extends StatefulWidget {
   static const routeName = '/address';
-  const AddressScreen({super.key});
+  const AddressScreen({super.key, required this.totalAmount});
+  final String totalAmount;
 
   @override
   State<AddressScreen> createState() => _AddressScreenState();
@@ -19,6 +22,9 @@ class _AddressScreenState extends State<AddressScreen> {
   final townCityController = TextEditingController();
   final _addressFormKey = GlobalKey<FormState>();
 
+  String addressToBeUsed = "";
+  final addressServices = AdressServices();
+
   @override
   void dispose() {
     super.dispose();
@@ -26,6 +32,24 @@ class _AddressScreenState extends State<AddressScreen> {
     areaStreetController.dispose();
     pincodeController.dispose();
     townCityController.dispose();
+  }
+
+  void onTapBuyButton() {
+    addressToBeUsed = flatBuildingController.text +
+        areaStreetController.text +
+        pincodeController.text +
+        townCityController.text;
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddresst(
+          context: context, address: addressToBeUsed);
+    }
+    addressServices.placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalPrice: double.parse(widget.totalAmount));
   }
 
   @override
@@ -95,6 +119,9 @@ class _AddressScreenState extends State<AddressScreen> {
                       hintText: 'Pincode',
                       controller: pincodeController,
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     CustomTextField(
                       hintText: 'Town/City',
                       controller: townCityController,
@@ -105,6 +132,13 @@ class _AddressScreenState extends State<AddressScreen> {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomButton(text: 'Order', onTap: onTapBuyButton),
+              )
             ],
           ),
         ),
