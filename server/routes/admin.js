@@ -1,7 +1,8 @@
 const express = require('express');
 const adminRouter = express.Router();
 const admin = require('../middlewares/admin');
-const Product = require('../models/product');
+const {Product} = require('../models/product');
+const {Order} = require('../models/order');
 // creating an admin middle ware
 // done
 
@@ -22,6 +23,15 @@ adminRouter.get('/admin/get-products',admin, async (req,res) => {
     try{
         const products = await Product.find({})
         res.json(products);
+        
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
+});
+adminRouter.get('/admin/get-orders',admin, async (req,res) => {
+    try{
+        const orders = await Order.find({});
+        res.json(orders);
         
     }catch(err){
         res.status(500).json({error:err.message});

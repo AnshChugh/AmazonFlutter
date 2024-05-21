@@ -204,8 +204,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             title: const Text('Delivered'),
                             content: const Text(
                                 'Your Order has been delivered and signed'),
-                            isActive: currentStep > 3,
-                            state: currentStep > 3
+                            isActive: currentStep >= 3,
+                            state: currentStep >= 3
                                 ? StepState.complete
                                 : StepState.indexed),
                       ])),

@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:amazon_flutter/constants/error_handling.dart';
 import 'package:amazon_flutter/constants/global_variables.dart';
 import 'package:amazon_flutter/constants/utils.dart';
+import 'package:amazon_flutter/models/order.dart';
 import 'package:amazon_flutter/models/product.dart';
 import 'package:amazon_flutter/providers/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -112,5 +112,31 @@ class AdminServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
+
+  Future<List<Order>> fetchAllOrders({required BuildContext context}) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Order> orderList = [];
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/admin/get-orders'),
+        headers: <String, String>{
+          'Content-type': 'Application/json; charset=UTF-8',
+          '-x-auth-token': userProvider.user.token
+        },
+      );
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            var orders = jsonDecode(res.body);
+            for (int i = 0; i < orders.length; i++) {
+              orderList.add(Order.fromJson(jsonEncode(orders[i])));
+            }
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderList;
   }
 }
