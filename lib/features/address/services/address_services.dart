@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:amazon_flutter/constants/error_handling.dart';
 import 'package:amazon_flutter/constants/global_variables.dart';

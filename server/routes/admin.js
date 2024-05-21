@@ -67,4 +67,40 @@ adminRouter.post('/admin/change-order-status', admin, async (req,res) => {
 
 
 
+
+adminRouter.get('/admin/analytics',admin, async (req,res) => {
+    try{
+        const orders = Order.find({});
+        let totalEarnings = 0;
+        for(let i = 0; i < orders.length;i++){
+            totalEarnings += orders[i].totalPrice;
+        }
+        // category wise product earning
+        let mobileEarnings =  await fetchCategoryWiseProducts('Mobiles');
+        let essentialsEarnings =  await fetchCategoryWiseProducts('Essentials');
+        let appliancesEarnings =  await fetchCategoryWiseProducts('Appliances');
+        let booksEarnings =  await fetchCategoryWiseProducts('Books');
+        let fashionEarnings =  await fetchCategoryWiseProducts('Fashion');
+
+        let earnings = {totalEarnings , mobileEarnings, essentialsEarnings , appliancesEarnings, booksEarnings, fashionEarnings};
+        res.json(earnings);
+        
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
+});
+
+async function fetchCategoryWiseProducts(category){
+    let totalEarnings = 0;
+    let categoryOrders = await Order.find({
+        'products.product.category': category
+    });
+    for(let i = 0; i < categoryOrders.length; i++){
+        for(let j = 0; j <  categoryOrders[i].products.length;j++){
+            totalEarnings += categoryOrders[i].products[j].quantity *  categoryOrders[i].products[j].price;
+        }
+    }
+    return totalEarnings;
+}
+
 module.exports = {adminRouter:adminRouter};
