@@ -1,8 +1,9 @@
 # amazon_flutter
 
-
- The goal of this repository is to follow the course of this tutorial
- YT Link: https://www.youtube.com/watch?v=ylJz7N-dv1E in order
- to learn the basics of backend and also creating UI with design principles in mind.
+### Features Include:
+    ->A Responsive UI in Flutter following Amazon's theme.
+    ->NodeJS backend with RESTful APIs for Authentication, Ordering, etc.
+    ->Features include: Product Categories, Deal of the Day, Search Product, Rate Product,
+    ->Admin Panel with adding/removing/changing status of product
 
  
