@@ -1,4 +1,3 @@
-import 'package:amazon_flutter/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class AccountButton extends StatelessWidget {

@@ -59,7 +59,7 @@ productRouter.get('/api/deal-of-the-day', auth, async (req,res) =>{
                 aSum += a.ratings[i].rating;
             }
             for(let i = 0;i  < b.ratings.length;i++){
-                bSum += a.ratings[i].rating;
+                bSum += b.ratings[i].rating;
             }
             return aSum < bSum ? 1: -1;
         });
